@@ -2,6 +2,7 @@
   "name": "copilot-node-server",
   "version": "1.9.1",
   "description": "Copilot Node.js server stripped from https://github.com/github/copilot.vim",
+  "bin": "./bin/copilot-node-server",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jfcherng/copilot-node-server.git"
