@@ -1,6 +1,6 @@
 Copilot Node.js server stripped from [copilot.vim] and published on [NPM][copilot-node-server-npm].
 
-To start the server, execute `bin/copilot-node-server` (with `node`).
+To start the server, execute `copilot/dist/agent.js` (with `node`).
 
 If you have any Copilot issue, please submit it to [Copilot discussions][copilot-discussions].
 
