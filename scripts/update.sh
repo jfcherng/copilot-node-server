@@ -13,8 +13,13 @@ rm -rf "${PROJECT_DIR}/copilot" && mkdir -p "${PROJECT_DIR}/copilot"
 read -erp "Repository revision to be downloaded (such as 'v1.26.0', '3c3775fc38' or 'origin/main'): " repo_rev
 
 if [[ -z ${repo_rev} ]]; then
-    echo "No revision specified. Exiting..."
+    echo "[ERROR] No revision specified. Exiting..."
     exit 1
+fi
+
+if [[ ${repo_rev} =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    repo_rev="v${repo_rev}"
+    echo "[INFO] Prepend \"v\" to the revision: ${repo_rev}"
 fi
 
 # download repository to the temporary directory
@@ -27,7 +32,7 @@ fi
         git checkout -f FETCH_HEAD
 
     if [[ $? != "0" ]]; then
-        echo "Failed to download the repository. Exiting..."
+        echo "[ERROR] Failed to download the repository. Exiting..."
         exit 1
     fi
 
