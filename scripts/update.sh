@@ -17,7 +17,7 @@ if [[ -z ${repo_rev} ]]; then
     exit 1
 fi
 
-if [[ ${repo_rev} =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+if [[ ${repo_rev} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     repo_rev="v${repo_rev}"
     echo "[INFO] Prepend \"v\" to the revision: ${repo_rev}"
 fi
