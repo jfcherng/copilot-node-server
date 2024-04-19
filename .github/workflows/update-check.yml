@@ -1,0 +1,54 @@
+name: copilot.vim update check
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  compareTag:
+    runs-on: ubuntu-latest
+    outputs:
+      latest_tag: ${{ steps.updateCheck.outputs.LATEST_TAG }}
+      requires_update: ${{ steps.updateCheck.outputs.REQUIRES_UPDATE }}
+      branch_name: ${{ steps.updateCheck.outputs.BRANCH_NAME }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: updateCheck
+        name: Run script
+        run: python ./scripts/ci/update_check.py
+
+  makePR:
+    needs:
+      - compareTag
+    if: needs.compareTag.outputs.requires_update == 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install deps
+        run: |
+          export BIN_DIR=${HOME}/.local/bin
+          mkdir -p "${BIN_DIR}"
+          echo "${BIN_DIR}" >> $GITHUB_PATH
+
+          export JJ_VERSION=1.9.2
+          wget -qO- "https://github.com/tidwall/jj/releases/download/v${JJ_VERSION}/jj-${JJ_VERSION}-linux-amd64.tar.gz" | tar xfz -
+          cp -f jj-*/jj "${BIN_DIR}" && rm -rf jj-*
+
+          python -m pip install -U -r ./scripts/ci/requirements.txt
+      - name: Update workspace Copilot
+        run: |
+          export COPILOT_VERSION='${{ needs.compareTag.outputs.latest_tag }}'
+          bash ./scripts/ci/update.sh
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: bump copilot.vim to ${{ needs.compareTag.outputs.latest_tag }}'
+          title: 'chore: bump copilot.vim to ${{ needs.compareTag.outputs.latest_tag }}'
+          labels: auto-update
+          branch: chore/server/${{ needs.compareTag.outputs.branch_name }}
