@@ -59,5 +59,14 @@ mv "${TMP_DIR}/dist" "${PROJECT_DIR}/copilot/dist"
 # update package.json
 jj -v "${repo_rev_no_v}" -i "${PACKAGE_JSON}" -o "${PACKAGE_JSON}" "version"
 
+# update package-lock.json
+{
+    pushd "${PROJECT_DIR}" || exit 1
+
+    npm install .
+
+    popd || exit
+}
+
 # clean up
 rm -rf "${TMP_DIR}"
