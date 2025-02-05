@@ -1,3 +1,9 @@
+## Important
+
+I (@jfcherng) no longer maintain this repository because [@github/copilot-language-server][] is a drop-in replacement for it and maintained by Microsoft. If you are willing to maintain this repository and the [corresponding NPM package][copilot-node-server-npm], just contact me.
+
+## Introduce
+
 Copilot Node.js server stripped from [copilot.vim] and published on [NPM][copilot-node-server-npm].
 
 ## Usage
@@ -18,6 +24,7 @@ To start the server, execute either of the following
 This repository doesn't modify any upstream file.
 If you have any Copilot issue or any server issue, please submit it to [Copilot discussions][copilot-discussions].
 
-[copilot.vim]: https://github.com/github/copilot.vim
+[@github/copilot-language-server]: https://www.npmjs.com/package/@github/copilot-language-server
 [copilot-discussions]: https://github.com/orgs/community/discussions/categories/copilot
 [copilot-node-server-npm]: https://www.npmjs.com/package/copilot-node-server
+[copilot.vim]: https://github.com/github/copilot.vim
