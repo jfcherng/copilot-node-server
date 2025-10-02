@@ -1,6 +1,10 @@
 ## Important
 
-I (@jfcherng) no longer maintain this repository because [@github/copilot-language-server][] is a drop-in replacement for it and maintained by Microsoft. If you are willing to maintain this repository and the [corresponding NPM package][copilot-node-server-npm], just contact me.
+⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
+
+This repository along with its [NPM][copilot-node-server-npm] package is no longer maintained.
+
+Just use the official [@github/copilot-language-server][].
 
 ## Introduce
 
